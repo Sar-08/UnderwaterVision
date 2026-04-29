@@ -1,0 +1,25 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* ===== GLOBAL BACKGROUND (Same as Auth) ===== */
+body {
+  min-height: 100vh;
+
+  background: linear-gradient(
+    to bottom,
+    #7db3d7 0%,
+    #5c8db8 40%,
+    #2e4e78 100%
+  );
+
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  color: white;
+}

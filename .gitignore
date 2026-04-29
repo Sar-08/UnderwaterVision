@@ -1,0 +1,17 @@
+node_modules/
+venv/
+__pycache__/
+.env
+
+frontend/node_modules/
+frontend/build/
+
+backend/uploads/*
+backend/outputs/*
+
+!backend/uploads/.gitkeep
+!backend/outputs/.gitkeep
+
+*.jpg
+*.png
+*.log
