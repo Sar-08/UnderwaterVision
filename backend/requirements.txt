@@ -1,0 +1,15 @@
+Flask
+ultralytics
+torch
+torchvision
+opencv-python
+numpy
+pandas
+Pillow
+gdown
+requests
+tqdm
+PyYAML
+scipy
+gunicorn
+python-dotenv
