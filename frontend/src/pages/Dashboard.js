@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaDownload, FaHome, FaUser, FaHistory, FaSignOutAlt } from "react-icons/fa";
+import { FaHome, FaUser, FaSignOutAlt } from "react-icons/fa";
 import Upload from "../components/Upload";
 import "../App.css";
 
