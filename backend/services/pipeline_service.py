@@ -154,5 +154,4 @@ def process_image_pipeline(file):
 
 # ---------------- HELPER ----------------
 def request_host_url():
-    from flask import request
-    return request.host_url.rstrip("/")
+    return os.getenv("BASE_URL", "http://localhost:5000")
