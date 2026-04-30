@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./History.css";
+import API from "../api";
 
 function History() {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/history")
+    axios.get(`${API}/api/history`)
       .then((res) => setHistory(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -27,36 +27,23 @@ function History() {
 
         {history.map((item, index) => (
           <div className="history-card" key={index}>
-            
-            {/* IMAGE */}
             <img
-              src={`http://localhost:5000/files/${item.detected}`}
+              src={`${API}/files/${item.output_path}`}
               alt="result"
               className="history-img"
             />
 
-            {/* INFO */}
             <div className="history-info">
-              <p>📅 {formatDate(item.createdAt)}</p>
+              <p>📅 {formatDate(item.date)}</p>
+              <p>🎯 Objects: {item.total_objects || 0}</p>
+              <p>📊 Types: {item.types?.join(", ") || "None"}</p>
 
-              <p>
-                🎯 Objects: {item.summary?.total_objects || 0}
-              </p>
-
-              <p>
-                📊 Types:{" "}
-                {item.summary?.object_types
-                  ? Object.keys(item.summary.object_types).join(", ")
-                  : "None"}
-              </p>
-
-              {/* DOWNLOAD BUTTON */}
               <a
-                href={`http://localhost:5000/files/${item.detected}`}
+                href={`${API}/files/${item.output_path}`}
                 download
                 className="download-btn"
               >
-                Download Report
+                Download Image
               </a>
             </div>
           </div>

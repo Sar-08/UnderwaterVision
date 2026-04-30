@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Auth.css";
 import { useNavigate } from "react-router-dom";
+import API from "../api";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -10,36 +11,36 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-  if (!username || !password) {
-    alert("Please enter username and password");
-    return;
-  }
-
-  setLoading(true);
-
-  try {
-    const response = await axios.post(
-      "http://localhost:5000/api/auth/login",
-      { username, password },
-      { headers: { "Content-Type": "application/json" } }
-    );
-
-    // ✅ STORE USER IN LOCAL STORAGE
-    localStorage.setItem("user", JSON.stringify(response.data.user));
-
-    alert("Login successful ✅");
-    navigate("/dashboard");
-
-  } catch (err) {
-    if (err.response) {
-      alert(`Login failed: ${err.response.data.error}`);
-    } else {
-      alert("Cannot connect to server");
+    if (!username || !password) {
+      alert("Please enter username and password");
+      return;
     }
-  } finally {
-    setLoading(false);
-  }
-};
+
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        `${API}/api/auth/login`,
+        { username, password },
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
+      alert("Login successful ✅");
+      navigate("/dashboard");
+
+    } catch (err) {
+      if (err.response) {
+        alert(`Login failed: ${err.response.data.error}`);
+      } else {
+        alert("Cannot connect to server");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="auth-wrapper">
       <div className="auth-card">

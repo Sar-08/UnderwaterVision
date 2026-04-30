@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Auth.css";
 import { useNavigate } from "react-router-dom";
+import API from "../api";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -12,7 +13,6 @@ function Register() {
   const navigate = useNavigate();
 
   const handleRegister = async () => {
-    // ✅ Validate fields
     if (!username || !email || !password || !confirmPassword) {
       alert("Please fill in all fields");
       return;
@@ -26,22 +26,20 @@ function Register() {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
+      await axios.post(
+        `${API}/api/auth/register`,
         { username, email, password },
         { headers: { "Content-Type": "application/json" } }
       );
 
-      console.log("Register response:", response.data);
       alert("Account created successfully ✅");
       navigate("/login");
 
     } catch (err) {
-      console.error("Register error:", err);
       if (err.response) {
         alert(`Registration failed: ${err.response.data.error}`);
       } else {
-        alert("Cannot connect to server. Is backend running on port 5000?");
+        alert("Cannot connect to server");
       }
     } finally {
       setLoading(false);
@@ -53,33 +51,10 @@ function Register() {
       <div className="auth-card">
         <h2>Create New Account</h2>
 
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
+        <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
 
         <button onClick={handleRegister} disabled={loading}>
           {loading ? "Creating Account..." : "Sign Up"}
